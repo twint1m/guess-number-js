@@ -1,12 +1,15 @@
 function guessNumber() {
+  let counter = 10;
   const secretNumber = Math.floor(Math.random() * 100) + 1;
-  console.log(secretNumber);
 
   function playGame() {
     const userNumber = prompt("Угадай число от 1 до 100:");
 
     if (userNumber === null) {
       alert("Игра окончена!");
+      return;
+    } else if (counter == 0) {
+      alert("У вас не осталось попыток! Игра окончена!");
       return;
     }
 
@@ -19,14 +22,18 @@ function guessNumber() {
       alert("Число должно быть от 1 до 100!");
       playGame();
     } else if (parsedNumber < secretNumber) {
-      alert("Загаданное число больше");
+      alert("Загаданное число больше, осталось попыток " + counter);
+      counter--;
       playGame();
     } else if (parsedNumber > secretNumber) {
-      alert("Загаданное число меньше");
+      alert("Загаданное число меньше, осталось попыток " + counter);
+      counter--;
       playGame();
     } else {
-      alert("Поздравляю, Вы угадали!!!");
-      return;
+      let playAgain = confirm("Поздравляю, Вы угадали!!! Желаете сыграть еще?");
+      if (playAgain == true) {
+        guessNumber();
+      }
     }
   }
 
